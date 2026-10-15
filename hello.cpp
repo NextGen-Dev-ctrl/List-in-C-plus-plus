@@ -5,80 +5,96 @@ struct node
     int val;
     node *next;
 };
-node* createNode(node *current, int value)
+class Linked_List
 {
-    node *n;
-    n=new node;
-    n->val=value;
-    n->next=NULL;
-    current->next=n;
-    return n;
-}
-void outputList(node *head)
-{
-    node *current;
-    current=head;
-    cout<<"[ ";
-     while(current != NULL)
+    private:
+    node* head;
+    public:
+    Linked_List()
     {
-        cout<<current->val<<" ";
-        current=current->next;
+        head = nullptr;
     }
-    cout<<"]\n";
-}
-node* AddValue(node *current)
-{
-    node *ret;
-    int value;
-    cout<<"Enter the value :";
-    cin>>value;
-    ret=createNode(current,value);
-    cout<<"----------Value is successfully added---------\n";
-    return ret;
-}
-void delete_node(node* &head, int value)
-{
-    if (head == NULL)
-        return;
-
-    // If head needs to be deleted
-    if (head->val == value)
+    // Getter of head
+    node* getHead() 
     {
-        node *temp = head;
-        head = head->next;
+        return head;
+    }
+    // Setter for head
+    void setHead(node* newHead)
+    {
+        head = newHead;
+    }
+    void outputList()
+    {
+        node *current;
+        current=head;
+        cout<<"[ ";
+        while(current != NULL)
+        {
+            cout<<current->val<<" ";
+            current=current->next;
+        }
+        cout<<"]\n";
+    }
+    void AddValue()
+    {
+        int value;
+        cout<<"Enter the value :";
+        cin>>value;
+        node *n = new node{value, nullptr};
+        if (head == nullptr)
+        {
+            head = n;
+        }
+        else
+        {
+            node *current = head;
+            while (current->next != nullptr)
+                current = current->next;
+            current->next = n;
+        }
+        cout<<"----------Value is successfully added---------\n";
+    }
+    void delete_node(int value)
+    {
+        if (head == NULL)
+            return;
+
+        // If head needs to be deleted
+        if (head->val == value)
+        {
+            node *temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+
+        node *cur = head;
+        while (cur->next != NULL && cur->next->val != value)
+        {
+            cur = cur->next;
+        }
+
+        if (cur->next == NULL)
+        {
+            cout << "Value not found\n";
+            return;
+        }
+
+        node *temp = cur->next;
+        cur->next = temp->next;
         delete temp;
-        return;
+        outputList();
     }
+};
 
-    node *cur = head;
-    while (cur->next != NULL && cur->next->val != value)
-    {
-        cur = cur->next;
-    }
 
-    if (cur->next == NULL)
-    {
-        cout << "Value not found\n";
-        return;
-    }
-
-    node *temp = cur->next;
-    cur->next = temp->next;
-    delete temp;
-    outputList(head);
-}
 
 int main()
 {
-    node *current;
-    node *head;
-    head = new node;
-    current = head;
-    head->next=NULL;
-    head->val=0;
+    Linked_List list;
     int check=0;
     int value;
-    int firstVal=0;
     while(true){
     cout<<"----------List------------\n";
     cout<<"1.Add member\n";
@@ -90,27 +106,17 @@ int main()
     {
         case 1:
         {
-        if(firstVal > 0)
-        {
-        current = AddValue(current);
-        }
-        else
-        {
-        cout<<"Enter the value :";
-        cin>>value;
-        head->val=value;
-        firstVal++;
-        }
+        list.AddValue();
         }
         break;
         case 2:
         value=0;
         cout<<"Enter the value which you want to delete :";
         cin>>value;
-        delete_node(head,value);
+        list.delete_node(value);
         break;
         case 3:
-        outputList(head);
+        list.outputList();
         break;
         case 4:
         return 0;
