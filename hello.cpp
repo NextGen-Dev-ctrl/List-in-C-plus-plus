@@ -36,24 +36,44 @@ class Linked_List
         }
         cout<<"]\n";
     }
-    void AddValue()
+    void InsertAt()
     {
         int value;
+        int position;
         cout<<"Enter the value :";
         cin>>value;
-        node *n = new node{value, nullptr};
-        if (head == nullptr)
+        cout<<"Enter the position (starting at 1) : ";
+        cin>>position;
+
+        if (position < 1)
         {
-            head = n;
+            cout<<"Position must be at least 1"<<endl;
+            return;
         }
-        else
+
+        if (position == 1)
         {
-            node *current = head;
-            while (current->next != nullptr)
-                current = current->next;
-            current->next = n;
+            node* newNode = new node{value, head};
+            head = newNode;
+            cout<<"Value added at position "<<position<<endl;
+            return;
         }
-        cout<<"----------Value is successfully added---------\n";
+
+        node* current = head;
+        for (int i = 1; i < position - 1 && current != nullptr; ++i)
+        {
+            current = current->next;
+        }
+
+        if (current == nullptr)
+        {
+            cout<<"Position is beyond the end of the list"<<endl;
+            return;
+        }
+
+        node* newNode = new node{value, current->next};
+        current->next = newNode;
+        cout<<"Value added at position "<<position<<endl;
     }
     void delete_node(int value)
     {
@@ -86,6 +106,16 @@ class Linked_List
         delete temp;
         outputList();
     }
+    int len(node* head)
+    {
+        node* current = head;
+        int count = 0;
+        while(current->next != nullptr)
+        {
+            count++;
+        }
+        return count;
+    }
 };
 
 
@@ -97,7 +127,7 @@ int main()
     int value;
     while(true){
     cout<<"----------List------------\n";
-    cout<<"1.Add member\n";
+    cout<<"1.InserAt\n";
     cout<<"2.Delete value\n";
     cout<<"3.Output list\n";
     cout<<"4.Exit\n";
@@ -106,7 +136,7 @@ int main()
     {
         case 1:
         {
-        list.AddValue();
+        list.InsertAt();
         }
         break;
         case 2:
