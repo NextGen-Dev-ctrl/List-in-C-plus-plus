@@ -116,6 +116,11 @@ class Linked_List
         }
         return count;
     }
+    void AddToHead(node* & head,int value)
+    {
+        node* new_node = new node{value,head};
+        head = new_node;
+    }
 };
 
 
