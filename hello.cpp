@@ -131,11 +131,11 @@ int main()
     int check=0;
     int value;
     while(true){
-    cout<<"----------List------------\n";
-    cout<<"1.InserAt\n";
-    cout<<"2.Delete value\n";
-    cout<<"3.Output list\n";
-    cout<<"4.Exit\n";
+    cout<<"----------List------------"<<endl;
+    cout<<"1.InserAt"<<endl;
+    cout<<"2.Delete value"<<endl;
+    cout<<"3.Output list"<<endl;
+    cout<<"4.Exit"<<endl;
     cin>>check;
     switch(check)
     {
