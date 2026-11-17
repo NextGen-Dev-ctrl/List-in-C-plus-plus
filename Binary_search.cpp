@@ -1,30 +1,30 @@
 #include <iostream>
 using namespace std;
-void sort(int arr[] , int size)
+void sort(int arr[], int size)
 {
-    for(int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size - 1; i++)
     {
         int min = i;
-        for(int j = 0; j < size; j++)
+        for (int j = 0; j < size; j++)
         {
-            if(arr[j] < min)
+            if (arr[j] < min)
             {
                 min = j;
             }
         }
-        if(min != i)
+        if (min != i)
         {
             int temp = arr[i];
             arr[i] = min;
             min = temp;
         }
     }
-    cout<<"Sorted Array : [ ";
-    for(int x = 0; x < size; x++)
+    cout << "Sorted Array : [ ";
+    for (int x = 0; x < size; x++)
     {
-        cout<<x<<" ";
+        cout << x << " ";
     }
-    cout<<" ]";
+    cout << " ]";
 }
 int main()
 {
